@@ -1,0 +1,7 @@
+.env
+browser_profile/
+output/
+state.json
+__pycache__/
+font.ttf
+log.txt

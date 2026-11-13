@@ -1,0 +1,86 @@
+{
+  "language": "Hindi",
+  "sheru": "Sheru Bhai: an anthropomorphic lion with a large golden mane, amber eyes, wearing a crisp white three-piece suit, gold tie and a gold wristwatch. Calm, confident, slightly amused. He must look exactly the same in every shot.",
+  "sheru_disguised": "Sheru Bhai in disguise: the same anthropomorphic lion with a large golden mane and amber eyes, but wearing an old torn brown shawl over a faded kurta and worn sandals, looking humble.",
+  "rival": {
+    "name": "Gainda Seth",
+    "look": "Gainda Seth: an anthropomorphic grey rhino in a tight black suit, red tie and dark sunglasses, sweaty and over-confident. He must look exactly the same in every shot."
+  },
+  "helper": "Chhotu: a small kind white rabbit tea-seller in a simple apron, carrying a kettle and clay cups.",
+  "auction_setting": "A grand luxury auction hall with white marble floors, golden chandeliers and a cheering crowd of well-dressed animals. An owl auctioneer in a waistcoat stands at a wooden podium with a hammer.",
+  "showroom_setting": "A glittering luxury showroom with glass walls, marble floors and spotlights, with a small roadside tea stall just outside the entrance.",
+  "items": [
+    {"prompt": "a diamond-covered supercar", "short": "Diamond Car", "showroom": true},
+    {"prompt": "a white private jet with gold trim", "short": "Private Jet", "showroom": true},
+    {"prompt": "a tiny roadside chai stall", "short": "Chai Ki Tapri"},
+    {"prompt": "a cricket team trophy and the whole team", "short": "Cricket Team"},
+    {"prompt": "a gold-plated auto rickshaw", "short": "Sone Ka Auto", "showroom": true},
+    {"prompt": "a glowing model of the Moon", "short": "Chaand"},
+    {"prompt": "a giant luxury yacht", "short": "Luxury Yacht", "showroom": true},
+    {"prompt": "a royal wedding horse with a jewelled saddle", "short": "Shaadi Ki Ghodi"},
+    {"prompt": "a five-star hotel shown as a glowing miniature", "short": "5 Star Hotel"},
+    {"prompt": "a golden samosa on a velvet cushion", "short": "Sone Ka Samosa"},
+    {"prompt": "a helicopter with a red carpet ramp", "short": "Helicopter", "showroom": true},
+    {"prompt": "the auction hall itself, shown as a framed deed", "short": "Poora Auction Hall"}
+  ],
+  "rival_bids": [
+    "Pachaas crore!",
+    "Sau crore, final!",
+    "Do sau crore, koi nahi de sakta!",
+    "Paanch sau crore, meri aakhri boli!"
+  ],
+  "sheru_first_lines": [
+    "Bas itna? Double likho.",
+    "Chhutta hai kya? Hazaar crore.",
+    "Arre bhai, zero kam lag rahe hain. Das guna karo.",
+    "Yeh toh meri chai ka kharcha hai. Dus hazaar crore."
+  ],
+  "sheru_final_lines": [
+    "Ek kharab, do padam, teen shankh. Likh lo!",
+    "Jitna tum soch sakte ho, usse ek zyada.",
+    "Paisa ginna band karo, tolna shuru karo.",
+    "Boli nahi, yeh Sheru ka faisla hai."
+  ],
+  "auction_endings": [
+    "Gainda Seth faints backwards off his chair",
+    "Gainda Seth pulls out his phone and cries to his mother for a loan",
+    "Gainda Seth offers his own sunglasses as payment and the owl refuses",
+    "Gainda Seth begs to pay in monthly instalments",
+    "Gainda Seth is outbid by Sheru Bhai's driver, a small mouse in a chauffeur cap",
+    "Gainda Seth's cheque bounces off the podium like rubber",
+    "Gainda Seth quietly crawls out under the chairs"
+  ],
+  "insults": [
+    "Ae bhikhari! Haath mat lagana, yeh tere baap ka nahi hai!",
+    "Chal nikal! Yahan sirf ameer log aate hain.",
+    "Dekhne ke bhi paise lagte hain, samjha?"
+  ],
+  "kind_lines": [
+    "Bhaiya, chai pee lo. Paise ki koi baat nahi.",
+    "Aap baitho, thak gaye hoge. Yeh lo garam chai.",
+    "Inki baat ka bura mat maano. Chai meri taraf se."
+  ],
+  "reveal_lines": [
+    "Showroom pack kar do. Aur chaabi Chhotu ko de do.",
+    "Maine dil dekha, tumne kapde. Aaj se yeh sab Chhotu ka.",
+    "Gainda Seth, kal se tum Chhotu ke yahan chai banaoge."
+  ],
+  "disguise_endings": [
+    "Gainda Seth's sunglasses slide off his face and he falls to his knees",
+    "Gainda Seth tries to hide behind a flower pot that is far too small",
+    "Gainda Seth nervously starts polishing Sheru Bhai's shoes with his own tie",
+    "Gainda Seth picks up the kettle and starts serving tea with a forced smile"
+  ],
+  "questions": [
+    "Agli boli kis cheez ki honi chahiye? Comment karo 👇",
+    "Gainda Seth kabhi jeetega? Haan ya Na? 👇",
+    "Sheru Bhai ko 10 mein se kitne number? 👇",
+    "Yeh reel us dost ko bhejo jo hamesha udhaar maangta hai 😂",
+    "Agle episode mein Sheru kya khareede? Batao 👇"
+  ],
+  "hashtag_sets": [
+    "#sherubhai #sherubhaikiboli #aivideo #comedyreels #trendingreels",
+    "#sherubhai #boli #aicomedy #funnyreels #reelsindia",
+    "#sherubhai #gaindaseth #aianimation #hindicomedy #viralreels"
+  ]
+}
