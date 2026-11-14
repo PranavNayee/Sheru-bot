@@ -10,6 +10,12 @@ Makes one Sheeru Bhai reel a day and posts it to Instagram.
 
 `run_daily.py` runs steps 1, 3 and 4. Step 2 is done by hand for now.
 
+## Signature ending
+
+Put a short clip named `outro.mp4` in this folder (for example Sheeru's catchphrase,
+made once in Flow) and the bot adds it to the end of every reel. Use your own clip,
+not audio or footage cut from other creators' reels.
+
 ## Daily use
 
 ```

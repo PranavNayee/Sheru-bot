@@ -93,6 +93,12 @@ def main() -> int:
             return 0
         print(f"[run] found {len(clips)} clip(s): " + ", ".join(c.name for c in clips))
 
+    # Signature ending: if outro.mp4 exists in the project folder, add it to every reel.
+    outro = config.ROOT / "outro.mp4"
+    if outro.exists():
+        clips = list(clips) + [outro]
+        print("[run] adding signature ending outro.mp4")
+
     # 2. Stitch
     import stitch
     reel = work_dir / "reel.mp4"

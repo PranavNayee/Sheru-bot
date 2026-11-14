@@ -117,8 +117,10 @@ def stitch(clips: list, out_path: Path, hook_lines=None, end_lines=None) -> Path
             if hook_lines:
                 text += _text_filters(work_dir, hook_lines, "hook", 260, "lt(t,3)", 92, "yellow")
             if end_lines:
+                # Show the follow card in the last 2.5 s before any outro clip.
+                story_end = total - (_duration(clips[-1]) if clips[-1].name == "outro.mp4" else 0)
                 text += _text_filters(work_dir, end_lines, "end", 1180,
-                                      f"gt(t,{max(total - 2.5, 0):.2f})", 84, "white")
+                                      f"between(t,{max(story_end - 2.5, 0):.2f},{story_end:.2f})", 84, "white")
 
     if text:
         filters.append(f"{pairs}concat=n={len(clips)}:v=1:a=1[vj][a]")
