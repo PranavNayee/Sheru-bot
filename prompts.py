@@ -152,11 +152,13 @@ def build_episode(n: int) -> Episode:
     if fmt == "boli":
         part1, part2 = _boli(d, n, item["prompt"], style)
         hook_lines = ["SHERU BHAI KI BOLI", f"Aaj: {item['short']}"]
-        title = f"Sheru Bhai ki boli, episode {n + 1} 🦁💰"
+        title = (f"Sheru Bhai ki Boli: {item['short']} | Sheru Bhai AI Story, "
+                 f"Sheru Bhai comedy video 🦁💰")
     else:
         part1, part2 = _garib(d, n, item["prompt"], style)
         hook_lines = ["Garib samjha...", "nikla ARABPATI!"]
-        title = f"Sheru Bhai ka imtihaan, episode {n + 1} 🦁"
+        title = (f"Sheru Bhai garib bankar aaye, nikle arabpati | Sheru Bhai AI Story, "
+                 f"Sheru Bhai emotional video 🦁")
 
     end_lines = [f"Episode {n + 2} kal", "FOLLOW karo"]
     caption = (
