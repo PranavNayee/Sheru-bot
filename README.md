@@ -12,9 +12,29 @@ Makes one Sheeru Bhai reel a day and posts it to Instagram.
 
 ## Signature ending
 
-Put a short clip named `outro.mp4` in this folder (for example Sheeru's catchphrase,
-made once in Flow) and the bot adds it to the end of every reel. Use your own clip,
-not audio or footage cut from other creators' reels.
+`outro.mp4` (Sheeru's golden sunglasses finale, made in Flow) is included and is added
+to the end of every reel. Replace it with your own clip of the same name to change it.
+
+## Editing options
+
+The bot edits each reel the way Part 1 was edited by hand:
+
+- trims every clip where its dialogue starts and ends, with short audio fades on each cut
+- burns in the hook text over the opening and the follow card just before the outro
+- makes `cover.jpg`, a designed cover with the title inside Instagram's profile-grid crop
+
+Options for when the AI clips need help:
+
+```
+python run_daily.py --teaser 3       # open with the first 2.6 s of clip 3 (flash-forward hook)
+python run_daily.py --skip 3         # leave clip 3 out (e.g. a continuity mistake)
+python run_daily.py --cover-clip 4   # take the cover frame from clip 4 (default: last clip)
+```
+
+Part 1 was made with `--teaser 3 --skip 3 --cover-clip 4`.
+
+When the bot posts through the API, Instagram's cover is set to a frame from the hook.
+To use the designed `cover.jpg` instead, change it in the app: open the reel, Edit, Edit cover.
 
 ## Daily use
 
@@ -47,7 +67,7 @@ None of this guarantees views. It raises the odds; the content and the audience 
 | Part | Status |
 |---|---|
 | Prompts, captions, episode counter | Tested |
-| Joining clips and on-screen text (ffmpeg) | Tested with sample clips |
+| Editing: trims, fades, text, flash-forward, outro, cover | Tested on the real Part 1 clips (2026-11-14) |
 | Results tracker (`insights.py`) | **Not tested.** Needs posted reels and a working token. |
 | Sheeru Bhai Studio tool (Flow) | Run once by hand on 2026-11-14; it planned and queued clips. Automating it is not built. |
 | `--auto-flow` (Flow chat via `flow_generate.py`) | **Experimental.** Prompt box and generate button checked on the live page; the rest is untested. Flow uses reCAPTCHA, which may block it. |

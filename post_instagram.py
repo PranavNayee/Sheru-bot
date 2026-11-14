@@ -51,7 +51,8 @@ def check_account() -> dict:
     return _json(r)
 
 
-def post_reel(video_path: Path, caption: str, poll_seconds: int = 10, max_wait: int = 600) -> str:
+def post_reel(video_path: Path, caption: str, poll_seconds: int = 10, max_wait: int = 600,
+              thumb_offset_ms=None) -> str:
     """Uploads and publishes the reel. Returns the published media ID."""
     _require_credentials()
     video_path = Path(video_path)
@@ -59,15 +60,18 @@ def post_reel(video_path: Path, caption: str, poll_seconds: int = 10, max_wait: 
         raise InstagramError(f"Video not found: {video_path}")
 
     # 1. Create an upload container.
+    data = {
+        "media_type": "REELS",
+        "upload_type": "resumable",
+        "caption": caption,
+        "share_to_feed": "true",
+        "access_token": config.IG_ACCESS_TOKEN,
+    }
+    if thumb_offset_ms is not None:
+        data["thumb_offset"] = str(int(thumb_offset_ms))
     r = requests.post(
         f"{_base()}/{config.IG_USER_ID}/media",
-        data={
-            "media_type": "REELS",
-            "upload_type": "resumable",
-            "caption": caption,
-            "share_to_feed": "true",
-            "access_token": config.IG_ACCESS_TOKEN,
-        },
+        data=data,
         timeout=60,
     )
     container = _json(r)

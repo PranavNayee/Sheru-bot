@@ -32,6 +32,8 @@ class Episode:
     part2: str
     caption: str
     story: str = ""
+    cover_title: str = ""
+    cover_badge: str = "NEW"
     hook_lines: list = field(default_factory=list)
     end_lines: list = field(default_factory=list)
 
@@ -132,12 +134,14 @@ def build_episode(n: int) -> Episode:
     """Series parts are posted first, in order; then the daily rotation starts."""
     d = load_data()
     parts = _series_parts(d)
+    series_cover = {s["title"]: s.get("cover", s["title"]) for s in d.get("series", [])}
     if n < len(parts):
         title, i, total, part = parts[n]
         return Episode(
             number=n, format="series", item=f"{title} part {i}/{total}",
             item_short=f"{title} {i}/{total}", part1="", part2="",
             caption=part["caption"], story=part["story"],
+            cover_title=series_cover.get(title, title), cover_badge=f"PART {i}",
             hook_lines=part["hook"], end_lines=part["end"],
         )
     n -= len(parts)
@@ -172,6 +176,7 @@ def build_episode(n: int) -> Episode:
         number=n, format=fmt, item=item["prompt"], item_short=item["short"],
         part1=part1, part2=part2, caption=caption,
         story=_story(d, n, fmt, item["short"]),
+        cover_title=(f"Boli: {item['short']}" if fmt == "boli" else "Garib ya Arabpati?"),
         hook_lines=hook_lines, end_lines=end_lines,
     )
 
