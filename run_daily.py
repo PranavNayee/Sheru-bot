@@ -69,6 +69,9 @@ def main() -> int:
         return 0
 
     # 1. Clips
+    if args.auto_flow and episode.format == "series":
+        print("[run] --auto-flow cannot make series episodes; use the Sheeru Bhai Studio tool.")
+        return 1
     if args.auto_flow:
         import flow_generate
         try:

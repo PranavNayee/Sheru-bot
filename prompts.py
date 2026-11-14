@@ -119,8 +119,28 @@ def _story(d: dict, n: int, fmt: str, short: str) -> str:
     )
 
 
+def _series_parts(d: dict) -> list:
+    parts = []
+    for series in d.get("series", []):
+        total = len(series["parts"])
+        for i, part in enumerate(series["parts"], start=1):
+            parts.append((series["title"], i, total, part))
+    return parts
+
+
 def build_episode(n: int) -> Episode:
+    """Series parts are posted first, in order; then the daily rotation starts."""
     d = load_data()
+    parts = _series_parts(d)
+    if n < len(parts):
+        title, i, total, part = parts[n]
+        return Episode(
+            number=n, format="series", item=f"{title} part {i}/{total}",
+            item_short=f"{title} {i}/{total}", part1="", part2="",
+            caption=part["caption"], story=part["story"],
+            hook_lines=part["hook"], end_lines=part["end"],
+        )
+    n -= len(parts)
     fmt = _format_for(n)
     if fmt == "garib":
         # Only items that make sense on display in a showroom.
