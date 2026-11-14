@@ -1,4 +1,6 @@
-"""Builds the day's episode: two 10-second Flow prompts, on-screen text and caption.
+"""Builds the day's episode: a Hinglish story for the Sheeru Bhai Studio tool in
+Google Flow, on-screen text and caption. (Two plain 10-second prompts are also
+built, for use in Flow's normal chat if the tool is unavailable.)
 
 Two story formats rotate so the page does not look repetitive:
   - "boli"  : the auction. Opens on Sheru's outrageous bid (the hook comes first).
@@ -29,6 +31,7 @@ class Episode:
     part1: str
     part2: str
     caption: str
+    story: str = ""
     hook_lines: list = field(default_factory=list)
     end_lines: list = field(default_factory=list)
 
@@ -90,6 +93,32 @@ def _garib(d: dict, n: int, item: str, style: str):
     return part1, part2
 
 
+def _story(d: dict, n: int, fmt: str, short: str) -> str:
+    if fmt == "boli":
+        return (
+            f"Sheeru Bhai ek shaandaar luxury auction hall mein aaram se baithe hain. "
+            f"Stage par {short} ki boli lag rahi hai. Unka purana dushman Billa khada hokar "
+            f"chillata hai: \"{_pick(d['rival_bids'], n)}\" Sheeru Bhai bina dekhe ek ungli "
+            f"uthate hain aur shaant awaaz mein kehte hain: \"{_pick(d['sheru_first_lines'], n)}\" "
+            f"Poora hall hairaan reh jaata hai aur Billa ko paseena aane lagta hai. Sheeru Bhai "
+            f"dheere se khade hote hain, apni sone ki ghadi theek karte hain aur kehte hain: "
+            f"\"{_pick(d['sheru_final_lines'], n)}\" Ullu neelaami-wala hathoda maar deta hai. "
+            f"{_pick(d['auction_endings_hi'], n)} Sheeru Bhai halki si muskaan ke saath "
+            f"{short} ki taraf chal dete hain."
+        )
+    return (
+        f"Sheeru Bhai ek garib musafir ke bhes mein, purani phati shawl odhe, ek chamakte "
+        f"luxury showroom mein {short} dekh rahe hain. Showroom ka ghamandi maalik Billa unhe "
+        f"dhakka dekar kehta hai: \"{_pick(d['insults'], n)}\" Sheeru Bhai chup rehte hain. "
+        f"Bahar chai bechne wala chhota khargosh Chhotu unhe garam chai deta hai aur kehta hai: "
+        f"\"{_pick(d['kind_lines'], n)}\" Tabhi safed luxury gaadiyon ka kaafila aakar rukta hai. "
+        f"Sheeru Bhai apne asli roop mein, safed suit aur kaale chashme mein, saamne aate hain. "
+        f"Billa ka muh khula reh jaata hai. Sheeru Bhai kehte hain: "
+        f"\"{_pick(d['reveal_lines'], n)}\" Woh {short} ki chaabi Chhotu ke haath mein rakh "
+        f"dete hain. {_pick(d['disguise_endings_hi'], n)}"
+    )
+
+
 def build_episode(n: int) -> Episode:
     d = load_data()
     fmt = _format_for(n)
@@ -120,6 +149,7 @@ def build_episode(n: int) -> Episode:
     return Episode(
         number=n, format=fmt, item=item["prompt"], item_short=item["short"],
         part1=part1, part2=part2, caption=caption,
+        story=_story(d, n, fmt, item["short"]),
         hook_lines=hook_lines, end_lines=end_lines,
     )
 
@@ -128,6 +158,6 @@ if __name__ == "__main__":
     import sys
 
     ep = build_episode(int(sys.argv[1]) if len(sys.argv) > 1 else 0)
-    print(f"FORMAT: {ep.format}\n\n--- PART 1 ---\n{ep.part1}\n\n--- PART 2 ---\n{ep.part2}"
+    print(f"FORMAT: {ep.format}\n\n--- STORY ---\n{ep.story}\n\n--- PART 1 ---\n{ep.part1}\n\n--- PART 2 ---\n{ep.part2}"
           f"\n\n--- ON-SCREEN ---\n{ep.hook_lines} ... {ep.end_lines}"
           f"\n\n--- CAPTION ---\n{ep.caption}")

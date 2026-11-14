@@ -1,13 +1,30 @@
 # Sheru Bhai daily reel bot
 
-Makes one Sheru Bhai auction reel a day and posts it to Instagram.
+Makes one Sheeru Bhai reel a day and posts it to Instagram.
 
-1. `prompts.py` builds the day's two 10-second prompts and the caption from `episodes.json`.
-2. `flow_generate.py` opens Google Flow in Chrome and generates the two clips.
-3. `stitch.py` joins them into one 1080x1920 reel with ffmpeg.
+1. `prompts.py` writes the day's story (Hinglish) and caption from `episodes.json`.
+2. You paste the story into the **Sheeru Bhai Studio** tool in Google Flow and click
+   "Poori Video Banao". The tool makes the clips (9:16, 720p, Hindi speech).
+3. `stitch.py` joins the clips into one 1080x1920 reel and adds the on-screen text.
 4. `post_instagram.py` publishes it through Instagram's official Graph API.
 
-`run_daily.py` runs all four steps.
+`run_daily.py` runs steps 1, 3 and 4. Step 2 is done by hand for now.
+
+## Daily use
+
+```
+python run_daily.py        # prints today's story
+```
+
+Paste the story into the tool, wait for the clips, and download them into the folder
+the command names (`output/episode_NNN/`) as `1.mp4`, `2.mp4`, `3.mp4` ... in order.
+
+```
+python run_daily.py        # joins the clips, adds text, posts
+```
+
+In the tool, set a Sheeru reference image and a Billa reference image once, so both
+characters look the same in every episode.
 
 ## What makes the reels stronger
 
@@ -26,7 +43,8 @@ None of this guarantees views. It raises the odds; the content and the audience 
 | Prompts, captions, episode counter | Tested |
 | Joining clips and on-screen text (ffmpeg) | Tested with sample clips |
 | Results tracker (`insights.py`) | **Not tested.** Needs posted reels and a working token. |
-| Google Flow step | **Not tested.** Written without access to the live site. Expect to fix `selectors.json` on first run. |
+| Sheeru Bhai Studio tool (Flow) | Run once by hand on 2026-11-14; it planned and queued clips. Automating it is not built. |
+| `--auto-flow` (Flow chat via `flow_generate.py`) | **Experimental.** Prompt box and generate button checked on the live page; the rest is untested. Flow uses reCAPTCHA, which may block it. |
 | Instagram posting | **Not tested.** Needs your account ID and token. Check the API version in `.env`. |
 
 The bot ships with `DRY_RUN=true`, so it will not post anything until you switch that off.
@@ -71,38 +89,22 @@ right element, and put its selector at the front of the matching list in `select
 ## First full run
 
 ```
-python run_daily.py --prompts-only     # read the prompts
-python run_daily.py --dry-run          # make the reel, do not post
+python run_daily.py --prompts-only     # read the story and caption
+python run_daily.py --dry-run          # after saving the clips: make the reel, do not post
 ```
 
 Watch `output/episode_000/reel.mp4`. When you are happy, set `DRY_RUN=false` in `.env`
 and run `python run_daily.py`.
 
-## Run it every day
-
-The laptop must be on, awake and online at the scheduled time.
-
-- **Windows:** Task Scheduler > Create Basic Task > Daily > Start a program:
-  `python`, arguments `run_daily.py`, "Start in" = this folder.
-- **Mac/Linux:** `crontab -e`, then for 3:00 PM daily:
-  `0 15 * * * cd /path/to/sheru-bot && python run_daily.py >> log.txt 2>&1`
-
-Pick a time outside roughly 7:30-10:30 PM India time, when free Flow accounts can be
-blocked from generating video.
-
 ## Things to know
 
-- **Free limit:** the free Flow allowance covers about two short clips a day, so one
-  reel a day with no retakes. If a clip comes out badly, that day's credits are gone.
-- **If Flow fails:** make the two clips by hand using the prompt files in
-  `output/episode_NNN/`, save them there as `part1.mp4` and `part2.mp4`, and run
-  `python run_daily.py --skip-flow`.
-- **Google sign-in:** Google sometimes refuses sign-in in an automated Chrome window.
-  If that happens, use the `--skip-flow` route above.
-- **Site rules:** driving the Flow website with a script may be against Google's
-  terms and could get the account limited. Use an account you can afford to lose
-  access to, and keep it to one run a day.
+- **Credits:** each clip in the tool uses an image generation and a video generation.
+  Check your Flow credit balance after the first story to see what one episode costs.
+- **Watch before posting:** AI clips sometimes come out with a wrong face or wrong
+  dialogue. Use "Regenerate Clip" in the tool for a bad one.
 - **Trend audio:** the API cannot attach Instagram's trending audio. The reel uses the
   dialogue audio that Flow generates.
+- **`--auto-flow`:** drives Flow's normal chat with a script. It may be against
+  Google's terms, and Google's reCAPTCHA may block it. Treat it as experimental.
 - **New episodes:** edit `episodes.json` to add items, lines and endings.
 - **Secrets:** never share or upload `.env` or the `browser_profile` folder.

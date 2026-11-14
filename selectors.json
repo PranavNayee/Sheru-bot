@@ -1,16 +1,17 @@
 {
-  "_note": "These are best guesses for the Google Flow page. They have NOT been checked against the live site. If a step fails, run 'python flow_generate.py --inspect', find the right element, and add its selector to the FRONT of the matching list. Each list is tried in order; the first visible match wins.",
+  "_note": "prompt_box and generate_button were checked against the live Flow page on 2026-11-14. new_project_button, video and error_text are still unverified guesses. If a step fails, run 'python flow_generate.py --inspect', find the right element, and add its selector to the FRONT of the matching list. Each list is tried in order; the first visible match wins.",
   "new_project_button": [
     "button:has-text('New project')",
     "[aria-label*='New project' i]",
     "a:has-text('New project')"
   ],
   "prompt_box": [
-    "textarea",
-    "[contenteditable='true']",
-    "[role='textbox']"
+    "div[role='textbox'][aria-label='What do you want to create?']",
+    ".ProseMirror[contenteditable='true']",
+    "[role='textbox'][contenteditable='true']"
   ],
   "generate_button": [
+    "button[aria-label='Start generation']",
     "button[aria-label*='Create' i]",
     "button[aria-label*='Generate' i]",
     "button:has-text('Generate')",

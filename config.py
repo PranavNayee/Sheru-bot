@@ -45,7 +45,7 @@ EPISODES_FILE = ROOT / "episodes.json"
 SELECTORS_FILE = ROOT / "selectors.json"
 
 # Flow
-FLOW_URL = get("FLOW_URL", "https://labs.google/fx/tools/flow")
+FLOW_URL = get("FLOW_URL", "https://flow.google.com/")
 FLOW_TIMEOUT_SECONDS = get_int("FLOW_TIMEOUT_SECONDS", 600)
 
 # Instagram

@@ -134,9 +134,13 @@ def generate_clips(prompts: list, out_dir: Path) -> list:
         try:
             page = context.pages[0] if context.pages else context.new_page()
             page.goto(config.FLOW_URL, wait_until="domcontentloaded")
-            new_project = _first_visible(page, sel["new_project_button"], timeout_ms=15000)
-            if new_project is not None:
-                new_project.click()
+            # Flow keeps aspect ratio, model and the "confirm before generating" switch
+            # per project, so FLOW_URL should point at one saved project. Only start a
+            # new project when FLOW_URL is the Flow home page.
+            if "/project/" not in page.url:
+                new_project = _first_visible(page, sel["new_project_button"], timeout_ms=15000)
+                if new_project is not None:
+                    new_project.click()
             for i, prompt in enumerate(prompts, start=1):
                 out_path = out_dir / f"part{i}.mp4"
                 print(f"[flow] generating clip {i} of {len(prompts)} ...")
@@ -165,7 +169,9 @@ def _open_for_human(inspect: bool) -> None:
             print(
                 "\nA Chrome window is open.\n"
                 " 1. Sign in to your Google account in that window.\n"
-                " 2. Open a Flow project and set: aspect ratio 9:16, model Omni Flash, 720p, 1 output.\n"
+                " 2. Open your Sheru project, click the Settings (tune) icon beside the prompt box and set:\n"
+                "    Confirm before generating = Never, Video = 9:16, x1, Omni Flash. Click Save.\n"
+                "    Put that project's address in .env as FLOW_URL.\n"
                 " 3. Come back here and press Enter to save the session.\n"
             )
             input("Press Enter when done... ")
